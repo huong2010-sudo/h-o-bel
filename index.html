@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nói không với - không trình độ✅</title>
+    <style>
+        :root {
+            --primary: #00d2ff;
+            --secondary: #3a7bd5;
+            --dark: #1e1e2e;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--dark);
+            color: white;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .code-box {
+            background: #282a36;
+            width: 90%;
+            max-width: 600px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        h2 { color: var(--primary); font-size: 1.2rem; }
+
+        /* Chỗ để hiển thị kết quả */
+        #result-screen {
+            background: #1a1a1a;
+            padding: 15px;
+            border-left: 4px solid #50fa7b;
+            margin-top: 15px;
+            min-height: 50px;
+            font-family: 'Courier New', Courier, monospace;
+            color: #50fa7b;
+        }
+
+        .btn-run {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border: none;
+            padding: 10px 20px;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .btn-run:hover { opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+    <div class="profile-header">
+        <h1>𝐐𝐮𝐚𝐧𝐠 𝐇𝐚̀𝐨 𝐖 𝐥𝐨𝐯𝐞 𝐰𝐞𝐚𝐤🐸</h1>
+        <p>ngôn ngữ | lập trình🫒</p>
+    </div>
+
+    <div class="code-box">
+        <h2> Trang chủ - đề</h2>
+        <p>Tên: <strong>Lập trình - coder</strong></p>
+        <p>Lập trình: C++ - c# | java - json</p>
+
+        <hr style="border: 0.5px solid #444;">
+
+        <h2> Chỗ dán Code chức năng (Demo)</h2>
+        <p style="font-size: 0.8rem; color: #aaa;">kích hoạt chạy code</p>
+        
+        <div id="result-screen">
+            Chưa có lệnh nào được thực thi...
+        </div>
+
+        <button class="btn-run" onclick="runFeature()">Chạy chức năng ngay!</button>
+    </div>
+
+    <script>
+        // Đây chính là "Chỗ dán code" chức năng
+        function runFeature() {
+            const screen = document.getElementById('result-screen');
+            
+            // --- DÁN CODE LOGIC CỦA BẠN VÀO DƯỚI ĐÂY ---
+            
+            let name = "Bạn";
+            let time = new Date().toLocaleTimeString();
+screen.innerHTML = "Xin chào " + name + "! Bây giờ là: " + time + "<br>Chức năng đã hoạt động mượt mà!";
+            
+            // --- HẾT PHẦN DÁN CODE ---
+        }
+    </script>
+
+</body>
+</html>
