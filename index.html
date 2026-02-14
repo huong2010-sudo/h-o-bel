@@ -3,106 +3,1231 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nói không với - không trình độ✅</title>
+    <title>MENU HEADSHOT</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
-        :root {
-            --primary: #00d2ff;
-            --secondary: #3a7bd5;
-            --dark: #1e1e2e;
-        }
 
+        /* ==================== THIẾT LẬP CHUNG & NỀN MỚI (ẢNH) ==================== */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--dark);
-            color: white;
+            /* **[ĐÃ THAY ĐỔI]** Ảnh nền mới */
+            background: url('https://i.postimg.cc/MHBdJz8G/IMG-2263.jpg') no-repeat center center fixed; 
+            background-size: cover; 
+            color: #ffffff;
             margin: 0;
-            padding: 20px;
+            padding: 0;
             display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            position: relative; /* Quan trọng cho z-index của lớp phủ */
+            z-index: 1;
+        }
+
+        /* **[ĐÃ THÊM]** Lớp phủ mờ để tăng độ tương phản */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Độ mờ 50% */
+            z-index: -1; 
+        }
+        
+        :root {
+            --primary-color: #00BFFF; /* MÀU XANH LAM RỰC (cho các điểm nhấn, nút chính) */
+            --secondary-color: #00FF7F; /* MÀU XANH LỤC NHẠT (cho chữ phụ, thông tin) */
+            --card-background: #1A1A1A; /* Nền card đen than */
+            --card-border: #333333; /* Viền card màu xám đậm */
+            --shadow-color: rgba(0, 191, 255, 0.6); /* Đổ bóng Xanh Lam */
+            /* Biến màu mới cho tính năng Game (Tông Xanh Lam/Xanh Lục) */
+            --obito-neon-blue: #00BFFF; 
+            --obito-neon-pink: #00FF7F;
+        }
+
+        .app-container, .login-container {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px 15px;
+            box-sizing: border-box;
+        }
+
+        /* ==================== HIỆU ỨNG CHỮ & HEADER CHUNG (UZUMAKI) ==================== */
+        /* ÁP DỤNG MÀU NEON GRADIENT XANH LAM/XANH LỤC CHO TIÊU ĐỀ MENU HEADSHOT */
+        .color-text-effect, .header h1 {
+            font-size: 32px;
+            margin: 0;
+            font-weight: 900;
+            /* Neon Gradient mới: Xanh Lam, Xanh Lục */
+            background: linear-gradient(90deg, #00BFFF, #00FF7F, #00BFFF); 
+            background-size: 300% 100%; 
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: neon-shift-title 4s ease-in-out infinite; 
+            /* Bóng chữ Xanh Lam/Xanh Lục */
+            text-shadow: 0 0 10px rgba(0, 191, 255, 0.8), 0 0 10px rgba(0, 255, 127, 0.8);
+        }
+        @keyframes neon-shift-title {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .title-wrapper {
+            overflow: hidden; 
+            white-space: nowrap;
+            width: 100%;
+            max-width: 370px; 
+            margin: 0 auto; 
+            text-align: center; 
+        }
+        /* Marquee chỉ áp dụng cho Login Screen */
+        .title-marquee {
+            display: inline-block;
+           
+        }
+        @keyframes marquee {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-100%, 0); } 
+        }
+        
+        /* Kích thước chữ trên Main Menu nhỏ hơn */
+        .header h1 { 
+            font-size: 24px; 
+            animation: neon-shift-title 5s ease-in-out infinite; /* Đổi tốc độ nhẹ */
+            /* Bóng chữ nhỏ hơn */
+            text-shadow: 0 0 8px rgba(0, 191, 255, 0.6), 0 0 8px rgba(0, 255, 127, 0.6);
+        }
+
+        
+        .title-typewriter {
+            display: inline-block;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+/* ==================== MÀN HÌNH ĐĂNG NHẬP (LOGIN SCREEN) ==================== */
+        .login-container {
+            display: none; 
             flex-direction: column;
             align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding-top: 50px;
+        }
+        .centered-header { text-align: center; margin-bottom: 30px; }
+        .centered-header .app-icon {
+            width: 80px; height: 80px; border-radius: 20px; margin: 0 auto 15px;
+            background: url("https://i.postimg.cc/hPkFGNMB/IMG-1652.jpg") no-repeat center center / cover;
+            /* Đổ bóng Xanh Lam */
+            box-shadow: 0 0 25px var(--shadow-color);
+        }
+        .centered-header p { font-size: 14px; color: var(--secondary-color); font-weight: bold; margin: 5px 0 15px; }
+        .login-card {
+            background: var(--card-background); 
+            border: 1px solid var(--card-border); 
+            border-radius: 20px;
+            padding: 35px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            width: 90%; max-width: 350px; text-align: center;
+        }
+        .login-card h2 { font-size: 22px; margin-top: 0; margin-bottom: 30px; color: #fff; }
+        .login-input-group { margin-bottom: 25px; position: relative; }
+        .login-input-group input {
+            width: 100%; padding: 15px 15px 15px 45px; 
+            background: #292929; /* Đen/Xám */
+            border: 1px solid var(--primary-color); /* Xanh Lam */
+            border-radius: 12px; color: #ffffff;
+            font-size: 17px; box-sizing: border-box; outline: none; transition: border-color 0.3s;
+        }
+        .login-input-group input:focus { border-color: var(--primary-color); box-shadow: 0 0 8px var(--shadow-color); }
+        .login-input-group .input-icon {
+            position: absolute; top: 50%; left: 15px; transform: translateY(-50%);
+            color: var(--secondary-color); /* Xanh Lục Neon */
+            font-size: 18px;
+        }
+        .login-button {
+            background: var(--primary-color); border: none; color: #ffffff;
+            padding: 18px; border-radius: 12px; width: 100%; font-size: 19px;
+            font-weight: bold; cursor: pointer; box-shadow: 0 4px 15px var(--shadow-color);
+            transition: background 0.2s, transform 0.1s;
+        }
+        .login-button:active { transform: scale(0.98); background: #0099cc; } /* Xanh Lam đậm hơn */
+        .login-status-message {
+            background: rgba(220, 20, 60, 0.9); color: white; padding: 10px 15px; border-radius: 10px;
+            font-size: 14px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease-in-out; opacity: 0; max-height: 0; overflow: hidden;
+        }
+        .login-status-message.show { opacity: 1; max-height: 60px; margin-bottom: 20px; }
+        .login-status-message.success { background: rgba(76, 175, 80, 0.9); }
+        .login-status-message.error { background: rgba(220, 20, 60, 0.9); }
+        .login-status-message.info { background: rgba(0, 191, 255, 0.9); } /* Đổi màu info sang Xanh Lam */
+        .status-text-box { background: #292929; padding: 15px 20px; margin: 15px 0; border-radius: 10px; text-align: left; border-left: 4px solid var(--secondary-color); }
+        .status-text-box strong { color: var(--secondary-color); }
+        .status-text-loading { color: #aaa; overflow: hidden; height: 18px; line-height: 18px; }
+        .small-text { color: #777; font-size: 12px; margin-top: 25px; }
+        
+        /* Nút LIÊN HỆ ADMIN */
+        .login-button[style*="#555555"] { 
+            background: #555555 !important; /* Giữ Xám đậm */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4) !important;
         }
 
-        .profile-header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding: 20px;
-            border-bottom: 2px solid var(--primary);
+        /* ==================== MÀN HÌNH CHÍNH (MAIN APP) ==================== */
+        .app-container {
+            display: none;
+            padding-top: 0;
+        }
+        
+        .card-with-border {
+            background: var(--card-background);
+            border: 2px solid var(--card-border);
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
+        }
+        
+        .header-card { padding: 15px; margin-bottom: 20px; display: flex; align-items: center; background: var(--card-background); border-radius: 20px; border: 2px solid var(--card-border);}
+        .app-icon-small { width: 40px; height: 40px; border-radius: 10px; overflow: hidden; box-shadow: 0 0 10px rgba(0, 191, 255, 0.5); margin-right: 10px; flex-shrink: 0; background: url("https://i.postimg.cc/hPkFGNMB/IMG-1652.jpg") no-repeat center center / cover; }
+        .header { text-align: left; margin: 0; padding: 0; flex-grow: 1; }
+        .header p { font-size: 12px; margin: 2px 0 0; color: var(--primary-color); } /* Xanh Lam */
+        
+        .performance-card { padding: 20px 10px; margin-bottom: 30px; }
+        .performance-stats { display: flex; justify-content: space-around; }
+        .stat-circle-container { position: relative; width: 110px; height: 110px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .stat-circle-container svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; transform: rotate(-90deg); }
+        .stat-circle-container circle { fill: none; stroke-width: 7; stroke-linecap: round; }
+        .bg-circle { stroke: rgba(255, 255, 255, 0.1); }
+        .progress-circle { stroke-dasharray: 251.2; transition: stroke-dashoffset 1.5s ease-out, stroke 0.5s; }
+        #cpu-progress { stroke: var(--primary-color); stroke-dashoffset: 188.4; animation: cpu-load-ring 3s infinite alternate; }
+        @keyframes cpu-load-ring { 0% { stroke-dashoffset: 200.96; } 50% { stroke-dashoffset: 175.84; } 100% { stroke-dashoffset: 200.96; } }
+        #ram-progress { stroke: var(--secondary-color); } /* Xanh Lục Neon */
+        #network-progress { stroke: #00BFFF; } /* Xanh Lam cho Network/Wifi */
+        .stat-circle-text { position: absolute; font-size: 22px; font-weight: bold; color: #ffffff; z-index: 10; }
+        .stat-circle-label { position: absolute; font-size: 11px; color: #ffffff; margin-top: 30px; z-index: 10; }
+        
+        .mode-buttons { display: flex; justify-content: space-between; margin-bottom: 30px; }
+        .mode-button { 
+            background: #292929; /* Xám đậm/Đen */
+            border: none; color: #ffffff; padding: 15px 10px; border-radius: 15px; width: 30%; 
+            text-align: center; display: flex; flex-direction: column; align-items: center; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); cursor: pointer; transition: background 0.2s, box-shadow 0.2s; 
+        }
+        .mode-button.active { 
+            background: #444444; /* Xám trung bình */
+            box-shadow: 0 0 15px rgba(0, 191, 255, 0.7); /* Bóng Xanh Lam */
+            border: 1px solid var(--primary-color);
+        }
+        .mode-button .icon { font-size: 28px; margin-bottom: 5px; }
+
+        .main-menu-card { padding: 20px; margin-bottom: 20px; }
+        .menu-item { display: flex; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); font-size: 16px; }
+        .menu-item:last-child { border-bottom: none; }
+        
+        /* Icon menu cũ vẫn màu TRẮNG */
+        .menu-item .icon { font-size: 20px; margin-right: 15px; color: #ffffff; } 
+        
+        /* MÀU CHỮ NEON XANH LAM CHO MENU CŨ */
+        .menu-item span {
+            /* Neon Gradient Xanh Lam */
+            background: linear-gradient(90deg, #00BFFF, #00FF7F, #00BFFF); 
+            background-size: 300% 100%; 
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: neon-shift 3s ease-in-out infinite; 
+            font-weight: bold; 
+            /* Bóng chữ Xanh Lam */
+            text-shadow: 0 0 5px rgba(0, 191, 255, 0.5), 0 0 5px rgba(0, 255, 127, 0.5); 
+            transition: all 0.3s;
+        }
+        @keyframes neon-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .boost-button { 
+            background: #292929; /* Đen/Xám */
+            border: 2px solid var(--primary-color); /* Viền Xanh Lam */
+            color: #ffffff; padding: 15px; border-radius: 15px; width: 100%; 
+            font-size: 18px; font-weight: bold; margin: 20px 0; 
+            box-shadow: 0 4px 15px var(--shadow-color); /* Bóng Xanh Lam */
+            cursor: pointer; transition: background 0.2s; 
         }
 
-        .code-box {
-            background: #282a36;
-            width: 90%;
-            max-width: 600px;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        /* App Selection */
+        #selectedAppsContainer { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; min-height: 80px; align-items: center; padding: 10px 0; }
+        .app-item { display: flex; flex-direction: column; align-items: center; position: relative; }
+        .app-item img { width: 50px; height: 50px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5); cursor: pointer; }
+        .app-item-label { font-size: 12px; margin-top: 5px; color: rgba(255, 255, 255, 0.8); }
+        .add-app { background: none; border: 2px solid rgba(255, 255, 255, 0.5); color: #ffffff; border-radius: 50%; width: 50px; height: 50px; font-size: 30px; line-height: 45px; text-align: center; cursor: pointer; flex-shrink: 0; }
+        .no-app-text { text-align: center; color: rgba(255, 255, 255, 0.5); font-size: 14px; margin-top: 5px; }
+        
+        /* Bottom Bar (Logout) */
+        .bottom-bar { 
+            background: #000000; /* Đen tuyệt đối */
+            padding: 12px 20px; 
+            position: fixed; 
+            bottom: 0; 
+            left: 50%;
+            transform: translateX(-50%);
+            max-width: 400px; 
+            width: 100%;
+            display: none; 
+            justify-content: space-between; 
+            align-items: center; 
+            border-top: 2px solid #333333; /* Viền xám */
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.5);
+            z-index: 900;
         }
-
-        h2 { color: var(--primary); font-size: 1.2rem; }
-
-        /* Chỗ để hiển thị kết quả */
-        #result-screen {
-            background: #1a1a1a;
-            padding: 15px;
-            border-left: 4px solid #50fa7b;
-            margin-top: 15px;
-            min-height: 50px;
-            font-family: 'Courier New', Courier, monospace;
-            color: #50fa7b;
-        }
-
-        .btn-run {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            border: none;
-            padding: 10px 20px;
+        .logout-button {
+            background: var(--primary-color); /* Xanh Lam */
             color: white;
-            border-radius: 5px;
-            cursor: pointer;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 10px;
             font-weight: bold;
-            margin-top: 10px;
+            cursor: pointer;
+        }
+        .key-info {
+            font-size: 13px;
+            color: #aaa;
+            text-align: right;
+        }
+        .key-info strong {
+            display: block;
+            color: var(--secondary-color); /* Xanh Lục Neon */
+            font-size: 14px;
         }
 
-        .btn-run:hover { opacity: 0.8; }
+        /* Loading Overlay & Modal Styles */
+        .loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 3000; color: white; font-size: 2em; display: none; }
+        .loading-text { margin-top: 25px; font-size: 0.8em; color: var(--secondary-color); text-shadow: 0 0 10px rgba(0, 255, 127, 0.5); }
+        #loading-progress-bar {  stroke: var(--primary-color); }
+        
+        /* Thêm style cho loading bar nhỏ (Obito features) */
+        .small-progress-bar-container {
+            height: 5px; background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 3px; overflow: hidden; margin-top: 8px;
+            width: 100%; 
+            display: none; 
+        }
+        .small-progress-bar {
+            /* Gradient Xanh Lam/Xanh Lục */
+            height: 100%; background: linear-gradient(90deg, #00BFFF, #00FF7F); 
+            opacity: 0.9; width: 0%; transition: none; 
+        }
+
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); display: flex; justify-content: center; align-items: center; z-index: 2000; display: none; }
+        .modal-content { background: var(--card-background); padding: 25px; border-radius: 20px; width: 90%; max-width: 320px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7); }
+        .modal-content h3 { margin-top: 0; border-bottom: 1px solid #444; padding-bottom: 10px; color: var(--primary-color); }
+        .app-selection { display: flex; justify-content: space-around; padding: 10px 0; }
+        .app-choice { text-align: center; cursor: pointer; opacity: 0.6; transition: opacity 0.2s, transform 0.2s; padding: 5px; border-radius: 10px; }
+        .app-choice.selected { opacity: 1; background: #292929; box-shadow: 0 0 10px rgba(0, 191, 255, 0.5); } /* Bóng Xanh Lam */
+        .app-choice img { width: 70px; height: 70px; border-radius: 15px; margin-bottom: 5px; }
+        .modal-buttons { display: flex; justify-content: space-between; margin-top: 20px; }
+        .modal-buttons button { padding: 10px 20px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; width: 48%; }
+        #modal-cancel { background: #555; color: white; }
+        #modal-done { background: var(--primary-color); color: white; }
+
+        /* ==================== STYLE OBITO (Game Features) ==================== */
+        .section-heading-obito {
+            text-align: left; color: #fff; margin: 20px 0 10px; font-size: 16px;
+            padding-left: 5px; text-transform: uppercase; border-left: 3px solid var(--obito-neon-blue); /* Xanh Lam */
+        }
+        .features-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+            margin-bottom: 20px;
+        }
+        .feature-card {
+            text-align: center; min-height: 100px; padding: 15px 10px; position: relative;
+            background: #292929; /* Xám đậm */
+            border: 1px solid #444444; /* Viền xám */
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            transition: all 0.2s;
+        }
+        .feature-card h4 { margin: 5px 0 3px; font-size: 14px; }
+        .feature-card p { font-size: 11px; color: #ccc; }
+        .material-icons { font-size: 28px; }
+        
+        /* Đổi màu Icon sang tone Xanh Lam/Xanh Lục */
+        .icon-blue { color: #00BFFF; } 
+        .icon-red { color: #00FF7F; }
+        .icon-green { color: #8BC34A; } 
+        .icon-gray { color: #6b7280; }
+        .icon-teal { color: #00BFFF; }
+        .icon-yellow { color: #00FF7F; }
+
+        .button-effect {
+            transition: all 0.2s ease-in-out; 
+            cursor: pointer;
+            user-select: none;
+        }
+        .button-effect.activated {
+            border: 1px solid var(--obito-neon-blue); /* Xanh Lam rực */
+            background: rgba(0, 191, 255, 0.1); /* Nền mờ Xanh Lam */
+            box-shadow: 0 0 15px rgba(0, 191, 255, 0.7); /* Bóng Xanh Lam */
+        }
+        .button-effect.activated h4, .button-effect.activated p { color: var(--obito-neon-blue); }
+        .button-effect.activated .material-icons { text-shadow: 0 0 5px var(--obito-neon-blue); }
+
+        /* ==================== STYLE CHO MODAL LIÊN HỆ ADMIN ==================== */
+        .admin-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .admin-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background: #292929; /* Xám đậm */
+            border-radius: 10px;
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: bold;
+            border-left: 5px solid var(--obito-neon-blue); /* Xanh Lam */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.2s;
+        }
+        .admin-item:hover {
+            background: #444444;
+            transform: translateY(-2px);
+        }
+        .admin-item .fa-tiktok {
+            font-size: 20px;
+            margin-right: 15px;
+            color: var(--secondary-color); /* Xanh Lục Neon */
+        }
+        .admin-item span {
+            flex-grow: 1;
+            text-align: left;
+        }
+        .admin-item .fa-chevron-right {
+            font-size: 14px;
+            color: var(--obito-neon-blue); /* Xanh Lam */
+        }
     </style>
 </head>
-<body>
+<body onload="checkLoginStatus()">
 
-    <div class="profile-header">
-        <h1>𝐐𝐮𝐚𝐧𝐠 𝐇𝐚̀𝐨 𝐖 𝐥𝐨𝐯𝐞 𝐰𝐞𝐚𝐤🐸</h1>
-        <p>ngôn ngữ | lập trình🫒</p>
+<div class="login-container" id="loginScreen">
+    <div class="centered-header">
+        <div class="app-icon"></div>
+        <p>Ultimate Performance Booster</p>
+        
+        <div class="title-wrapper">
+            <h1 class="color-text-effect title-marquee">MENU AIMBOT PRO </h1>
+        </div>
     </div>
 
-    <div class="code-box">
-        <h2> Trang chủ - đề</h2>
-        <p>Tên: <strong>Lập trình - coder</strong></p>
-        <p>Lập trình: C++ - c# | java - json</p>
+    <div class="login-card">
+        <h2>NHẬP KEY ĐỂ KÍCH HOẠT</h2>
+        <div id="loginStatusMessage" class="login-status-message"></div>
 
-        <hr style="border: 0.5px solid #444;">
-
-        <h2> Chỗ dán Code chức năng (Demo)</h2>
-        <p style="font-size: 0.8rem; color: #aaa;">kích hoạt chạy code</p>
+        <div class="login-input-group">
+            <input type="text" id="keyInput" placeholder="Nhập key của bạn">
+            <i class="fas fa-key input-icon"></i>
+        </div>
         
-        <div id="result-screen">
-            Chưa có lệnh nào được thực thi...
+        <div id="authStatusText" class="status-text-box" style="display: none;">
+            <strong>Đang xác thực key...</strong>
+            <div class="status-text-loading">Vui lòng chờ trong giây lát<span>.</span></div>
         </div>
 
-        <button class="btn-run" onclick="runFeature()">Chạy chức năng ngay!</button>
+        <button class="login-button" onclick="handleLogin()">KÍCH HOẠT & ĐĂNG NHẬP</button>
+        <button class="login-button" style="margin-top: 15px; background: #555555;" onclick="openAdminContactModal()">
+            <i class="fas fa-headset"></i> LIÊN HỆ ADMIN
+        </button>
+        <p class="small-text">Vui lòng liên hệ Admin để mua Key chính thức.</p>
+    </div>
+</div>
+
+<div class="app-container" id="mainAppScreen">
+    <div class="header-card card-with-border">
+        <div class="app-icon-small"></div>
+        <div class="header">
+            <p>Ultimate Performance Booster</p>
+            <h1 class="color-text-effect title-typewriter" id="mainTitle"></h1>
+        </div>
     </div>
 
-    <script>
-        // Đây chính là "Chỗ dán code" chức năng
-        function runFeature() {
-            const screen = document.getElementById('result-screen');
-            
-            // --- DÁN CODE LOGIC CỦA BẠN VÀO DƯỚI ĐÂY ---
-            
-            let name = "Bạn";
-            let time = new Date().toLocaleTimeString();
-screen.innerHTML = "Xin chào " + name + "! Bây giờ là: " + time + "<br>Chức năng đã hoạt động mượt mà!";
-            
-            // --- HẾT PHẦN DÁN CODE ---
-        }
-    </script>
+    <div class="performance-card card-with-border">
+        <div class="performance-stats">
+            <div class="stat-circle-container">
+                <svg viewBox="0 0 100 100">
+                    <circle class="bg-circle" cx="50" cy="50" r="40"></circle>
+                    <circle id="cpu-progress" class="progress-circle" cx="50" cy="50" r="40"></circle>
+                </svg>
+                <span class="stat-circle-text" id="cpu-percent">25%</span>
+                <span class="stat-circle-label">CPU</span>
+            </div>
 
+            <div class="stat-circle-container">
+                <svg viewBox="0 0 100 100">
+                    <circle class="bg-circle" cx="50" cy="50" r="40"></circle>
+                    <circle id="ram-progress" class="progress-circle" cx="50" cy="50" r="40"></circle>
+                </svg>
+                <span class="stat-circle-text" id="ram-percent">0%</span>
+                <span class="stat-circle-label">RAM</span>
+            </div>
+
+            <div class="stat-circle-container">
+                <svg viewBox="0 0 100 100">
+                    <circle class="bg-circle" cx="50" cy="50" r="40"></circle>
+                    <circle id="network-progress" class="progress-circle" cx="50" cy="50" r="40"></circle>
+                </svg>
+                <span class="stat-circle-text" id="network-percent">0%</span>
+                <span class="stat-circle-label">Network</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="mode-buttons">
+        <button class="mode-button" id="btn-battery" onclick="toggleMode('btn-battery')">
+            <span class="icon"><i class="fas fa-bolt"></i></span>
+            <span>Battery Save</span>
+        </button>
+        <button class="mode-button" id="btn-balance" onclick="toggleMode('btn-balance')">
+            <span class="icon"><i class="fas fa-balance-scale"></i></span>
+            <span>Balance</span>
+        </button>
+        <button class="mode-button" id="btn-gamer" onclick="toggleMode('btn-gamer')">
+            <span class="icon"><i class="fas fa-gamepad"></i></span>
+            <span>Gamer Mode</span>
+        </button>
+    </div>
+
+    <div class="main-menu-card card-with-border">
+        <div class="menu-item">
+            <span class="icon"><i class="fas fa-circle-notch"></i></span>
+            <span>Tự động xóa bộ nhớ</span>
+        </div>
+        <div class="menu-item">
+            <span class="icon"><i class="fas fa-bars"></i></span>
+            <span>Giải phóng không gian lưu trữ</span>
+        </div>
+        <div class="menu-item">
+            <span class="icon"><i class="fas fa-desktop"></i></span>
+            <span>Tăng hiệu suất</span>
+        </div>
+        
+        <h2 class="section-heading-obito">Dev Chi Cuong</h2>
+        <section class="features-grid">
+            <div class="feature-card button-effect" data-function="Touch View">
+                <span class="material-icons icon-blue">touch_app</span>
+                <h4>Touch View</h4>
+                <p>Tăng nhạy và cảm biề màn hình mượt màn</p>
+                <div class="small-progress-bar-container" data-progress-id="Touch View">
+                    <div class="small-progress-bar"></div>
+                </div>
+            </div>
+            <div class="feature-card button-effect" data-function="Speed Smooth">
+                <span class="material-icons icon-red">rocket_launch</span>
+                <h4>Speed Smooth</h4>
+                <p>Tăng tốc độ mượt mà khi chơi game</p>
+                <div class="small-progress-bar-container" data-progress-id="Speed Smooth">
+                    <div class="small-progress-bar"></div>
+                </div>
+            </div>
+            <div class="feature-card button-effect" data-function="Control Drag">
+                <span class="material-icons icon-green">mouse</span>
+                <h4>Control Drag</h4>
+                <p>Khi cho game trượt nút nhạy hơn</p>
+                 <div class="small-progress-bar-container" data-progress-id="Control Drag">
+                    <div class="small-progress-bar"></div>
+                </div>
+            </div>
+            <div class="feature-card button-effect" data-function="CPU X">
+                <span class="material-icons icon-gray">memory</span>
+                <h4>AIMBOT
+SUPPER</h4>
+                <p>Bám Mạnh Vùng Đầu Khoá Chặt</p>
+                 <div class="small-progress-bar-container" data-progress-id="CPU X">
+                    <div class="small-progress-bar"></div>
+                </div>
+            </div>
+            <div class="feature-card button-effect" data-function="Regedit Aimlock">
+                <span class="material-icons icon-teal">lock</span>
+                <h4>Regedit Aimlock</h4>
+                <p>Khi kéo tâm luôn giữ ở khoảng</p>
+                 <div class="small-progress-bar-container" data-progress-id="Regedit Aimlock">
+                    <div class="small-progress-bar"></div>
+                </div>
+            </div>
+            <div class="feature-card button-effect" data-function="Sensitivity">
+                <span class="material-icons icon-yellow">flash_on</span>
+                <h4>Sensitivity</h4>
+                <p>Khi trượt trọi luôn nhạy và nhẹ súng khi trượt</p>
+                 <div class="small-progress-bar-container" data-progress-id="Sensitivity">
+                    <div class="small-progress-bar"></div>
+                </div>
+            </div>
+        </section>
+        
+        <button class="boost-button" onclick="startBoost()">
+            ⚡ ON AURA SUPPER ⚡
+        </button>
+
+        <div id="selectedAppsContainer">
+            </div>
+
+        <div class="add-app" onclick="openAppSelector()">
+            +
+        </div>
+        <p class="no-app-text" id="noAppText">Chưa có ứng dụng nào</p>
+    </div>
+
+</div>
+
+<div class="loading-overlay" id="loadingOverlay">
+    <div class="stat-circle-container">
+        <svg viewBox="0 0 100 100">
+            <circle class="bg-circle" cx="50" cy="50" r="40"></circle>
+            <circle id="loading-progress-bar" class="progress-circle" cx="50" cy="50" r="40"></circle>
+        </svg>
+        <span class="stat-circle-text" id="loading-percent">0%</span>
+    </div>
+    <div class="loading-text">Đang  ưu</div>
+</div>
+
+<div class="modal-overlay" id="appSelectorModal">
+    <div class="modal-content">
+        <h3>Chọn Ứng Dụng Game</h3>
+        <div class="app-selection">
+            <div class="app-choice" data-id="ffmax" data-name="FF Max" data-img="https://i.postimg.cc/76Y8d3tk/IMG-1648.jpg" onclick="toggleSelection(this)">
+                <img src="https://i.postimg.cc/MTK2N73x/IMG-1649.jpg" alt="Free Fire Max Icon">
+                <span>Free Fire Max</span>
+            </div>
+            <div class="app-choice" data-id="ff" data-name="Free Fire" data-img="https://i.postimg.cc/76Y8d3tk/IMG-1648.jpg" onclick="toggleSelection(this)">
+                <img src="https://i.postimg.cc/76Y8d3tk/IMG-1648.jpg" alt="Free Fire Icon">
+                <span>Free Fire</span>
+            </div>
+        </div>
+        <div class="modal-buttons">
+            <button id="modal-cancel" onclick="closeAppSelector()">Hủy</button>
+            <button id="modal-done" onclick="addSelectedApps()">Xong</button>
+        </div>
+    </div>
+</div>
+
+<div class="bottom-bar" id="bottomBar">
+    <button class="logout-button" onclick="logout('Bạn đã đăng xuất thành công.')">
+        <i class="fas fa-sign-out-alt"></i> Đăng xuất
+    </button>
+    <div class="key-info">
+        Key: <strong id="currentKeyInfo">CHICUONG</strong>
+        Hết hạn: <span id="expiryDateInfo">Vĩnh viễn</span>
+    </div>
+</div>
+
+<div class="modal-overlay" id="adminContactModal">
+    <div class="modal-content" style="max-width: 350px;">
+        <h3 style="color: var(--secondary-color);">LIÊN HỆ MUA KEY CHÍNH THỨC</h3>
+        
+        <div class="admin-list">
+            <a href="https://zalo.me/0974684032" target="_blank" class="admin-item">
+                <i class="fab fa-facebook icon-blue"></i>
+                <span>Zalo</span>
+                <i class="fas fa-chevron-right"></i>
+            </a>
+            <a href="https://www.facebook.com/share/17fodVFbGh/?mibextid=wwXIfr" target="_blank" class="admin-item">
+                <i class="fab fa-facebook icon-blue"></i>
+                <span>Facebook</span>
+                <i class="fas fa-chevron-right"></i>
+            </a>
+           <a href="https://www.tiktok.com/@henryxthetrung?_r=1&_t=ZS-91ZvPbe0SjH" target="_blank" class="admin-item">
+                <i class="fab fa-facebook icon-blue"></i>
+                <span>TikTok</span>
+                <i class="fas fa-chevron-right"></i>
+            </a>
+
+        <div class="modal-buttons" style="margin-top: 15px;">
+            <button id="modal-cancel-admin" onclick="closeAdminContactModal()" style="background: var(--primary-color); width: 100%;">Đóng</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const TOTAL_LENGTH = 251.2;
+    const CPU_INITIAL_PERCENT = 25;
+    const CPU_INITIAL_OFFSET = TOTAL_LENGTH - (TOTAL_LENGTH * CPU_INITIAL_PERCENT / 100);
+
+    let selectedApps = {};
+    let initialRamPercent = 0;
+    let initialNetworkPercent = 0;
+
+    // ==================== MOCK JSON LOAD FUNCTION (Chứa dữ liệu keys.json) ====================
+    async function mockLoadKeys() {
+        // Dữ liệu keys.json đã được nhúng trực tiếp
+        const newMockKeysJson = {
+            "keys": {
+                // 5 key 1 ngày
+                "DAY1_KEY1": {"type": "day", "duration": 1, "status": "unused", "used_on": null, "expires": null},
+                "DAY1_KEY2": {"type": "day", "duration": 1, "status": "unused", "used_on": null, "expires": null},
+                "DAY1_KEY3": {"type": "day", "duration": 1, "status": "unused", "used_on": null, "expires": null},
+                "DAY1_KEY4": {"type": "day", "duration": 1, "status": "unused", "used_on": null, "expires": null},
+                "DAY1_KEY5": {"type": "day", "duration": 1, "status": "unused", "used_on": null, "expires": null},
+
+                // 5 key 7 ngày
+                "WEEK7_KEY1": {"type": "day", "duration": 7, "status": "unused", "used_on": null, "expires": null},
+                "WEEK7_KEY2": {"type": "day", "duration": 7, "status": "unused", "used_on": null, "expires": null},
+                "WEEK7_KEY3": {"type": "day", "duration": 7, "status": "unused", "used_on": null, "expires": null},
+                "WEEK7_KEY4": {"type": "day", "duration": 7, "status": "unused", "used_on": null, "expires": null},
+                "WEEK7_KEY5": {"type": "day", "duration": 7, "status": "unused", "used_on": null, "expires": null},
+                
+                // 5 key 15 ngày
+                "HALF15_KEY1": {"type": "day", "duration": 15, "status": "unused", "used_on": null, "expires": null},
+                "HALF15_KEY2": {"type": "day", "duration": 15, "status": "unused", "used_on": null, "expires": null},
+                "HALF15_KEY3": {"type": "day", "duration": 15, "status": "unused", "used_on": null, "expires": null},
+                "HALF15_KEY4": {"type": "day", "duration": 15, "status": "unused", "used_on": null, "expires": null},
+                "HALF15_KEY5": {"type": "day", "duration": 15, "status": "unused", "used_on": null, "expires": null},
+
+                // 5 key 30 ngày
+                "MONTH30_KEY1": {"type": "day", "duration": 30, "status": "unused", "used_on": null, "expires": null},
+                "MONTH30_KEY2": {"type": "day", "duration": 30, "status": "unused", "used_on": null, "expires": null},
+                "MONTH30_KEY3": {"type": "day", "duration": 30, "status": "unused", "used_on": null, "expires": null},
+                "MONTH30_KEY4": {"type": "day", "duration": 30, "status": "unused", "used_on": null, "expires": null},
+                "MONTH30_KEY5": {"type": "day", "duration": 30, "status": "unused", "used_on": null, "expires": null},
+
+                // 5 key vĩnh viễn
+                "KEYVIP-VINHVIEN": {"type": "permanent", "duration": null, "status": "unused", "used_on": null, "expires": "permanent"},
+                "KEYVIP2-VINHVIEN": {"type": "permanent", "duration": null, "status": "unused", "used_on": null, "expires": "permanent"},
+                "KEYVIP3-VINHVIEN": {"type": "permanent", "duration": null, "status": "unused", "used_on": null, "expires": "permanent"},
+                "KEYVIP4-VINHVIEN": {"type": "permanent", "duration": null, "status": "unused", "used_on": null, "expires": "permanent"},
+                "KEYVIP5-VINHVIEN": {"type": "permanent", "duration": null, "status": "unused", "used_on": null, "expires": "permanent"},
+                
+                // Key đã hết hạn để test
+                "EXPIRED_TEST_KEY": {"type": "day", "duration": 1, "status": "used", "used_on": "2024-01-01T10:00:00.000Z", "expires": "2024-01-02T10:00:00.000Z"}
+            }
+        };
+
+        const storedKeys = JSON.parse(localStorage.getItem('activatedKeys') || '{}');
+        await new Promise(resolve => setTimeout(resolve, 300)); 
+        // Trộn các key cứng với các key đã lưu (để key đã kích hoạt được giữ lại)
+        return {...newMockKeysJson.keys, ...storedKeys};
+    }
+    
+    function saveKeyActivation(key, data) {
+        const storedKeys = JSON.parse(localStorage.getItem('activatedKeys') || '{}');
+        storedKeys[key] = data;
+        localStorage.setItem('activatedKeys', JSON.stringify(storedKeys));
+    }
+
+    // ==================== LOGIN LOGIC ====================
+    
+    function showAuthStatusText(show, title = '', message = '') {
+        const authStatus = document.getElementById('authStatusText');
+        const loginMessage = document.getElementById('loginStatusMessage');
+        
+        if (show) {
+            authStatus.style.display = 'block';
+            authStatus.innerHTML = `<strong>${title}</strong><div class="status-text-loading">${message}<span>.</span></div>`;
+            loginMessage.classList.remove('show', 'success', 'error', 'info');
+            loginMessage.innerHTML = '';
+        } else {
+            authStatus.style.display = 'none';
+        }
+    }
+
+    function showMessage(type, title, message) {
+        showAuthStatusText(false); 
+        const msgDiv = document.getElementById('loginStatusMessage');
+        msgDiv.className = `login-status-message show ${type}`;
+        msgDiv.innerHTML = `<strong>${title}</strong><span>${message}</span>`;
+    }
+
+    function hideMessage() {
+        document.getElementById('loginStatusMessage').classList.remove('show', 'success', 'error', 'info');
+        document.getElementById('loginStatusMessage').innerHTML = '';
+    }
+
+    async function handleLogin() {
+        const VALID_KEYS = await mockLoadKeys(); 
+        const enteredKey = document.getElementById('keyInput').value.trim().toUpperCase();
+        
+        hideMessage();
+
+        if (!enteredKey) {
+            showMessage('error', 'Lỗi đăng nhập', 'Vui lòng nhập key.');
+            return;
+        }
+
+        showAuthStatusText(true, 'Đang xác thực', 'Vui lòng chờ trong giây lát');
+
+        setTimeout(() => { 
+            let keyData = VALID_KEYS[enteredKey];
+
+            if (keyData) {
+                const now = new Date();
+                let keyExpiryText = 'Vĩnh viễn';
+                let isExpired = false;
+
+                // 1. Kiểm tra key đã hết hạn
+                if (keyData.expires && keyData.expires !== 'permanent') {
+                    const expiryDate = new Date(keyData.expires);
+                    if (expiryDate < now) {
+                        isExpired = true;
+                        keyExpiryText = expiryDate.toLocaleString('vi-VN');
+                    } else {
+                        keyExpiryText = expiryDate.toLocaleString('vi-VN');
+                    }
+                }
+                
+                if (isExpired) {
+                    showMessage('error', 'Key đã hết hạn', `Key này đã hết hạn vào: ${keyExpiryText}.`);
+                    return;
+                }
+
+                // 2. Kích hoạt key chưa sử dụng
+                if (keyData.status === "unused") { 
+                    if (keyData.type === "permanent") {
+                         keyData.status = "used";
+                         keyData.used_on = now.toISOString();
+                         saveKeyActivation(enteredKey, keyData);
+                         keyExpiryText = 'Vĩnh viễn';
+                    } else {
+                        let expiryDate = new Date();
+                        expiryDate.setDate(expiryDate.getDate() + keyData.duration);
+                        
+                        keyData.status = "used";
+                        keyData.used_on = now.toISOString();
+                        keyData.expires = expiryDate.toISOString();
+                        saveKeyActivation(enteredKey, keyData); 
+                        keyExpiryText = expiryDate.toLocaleString('vi-VN');
+                    }
+                } 
+                
+                // Key đã kích hoạt và còn hạn
+                else if (keyData.status === "used") {
+                    keyExpiryText = keyData.expires === 'permanent' ? 'Vĩnh viễn' : new Date(keyData.expires).toLocaleString('vi-VN');
+                }
+                
+                // 3. Tiến hành đăng nhập
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('activeKey', enteredKey);
+                localStorage.setItem('keyExpiry', keyData.expires);
+
+                document.getElementById('currentKeyInfo').textContent = enteredKey;
+                document.getElementById('expiryDateInfo').textContent = keyExpiryText;
+
+                const durationDisplay = keyData.type === 'permanent' ? 'vĩnh viễn' : `${keyData.duration} ngày`;
+                showMessage('success', 'Đăng nhập thành công!', `Key ${durationDisplay}.`);
+                setTimeout(showMainApp, 1500);
+
+            } else {
+                showMessage('error', 'Key không hợp lệ', 'Key bạn nhập không đúng. Vui lòng kiểm tra lại.');
+            }
+        }, 1000); 
+    }
+
+    async function checkLoginStatus() {
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        const activeKey = localStorage.getItem('activeKey');
+        const keyExpiry = localStorage.getItem('keyExpiry');
+        
+        const loginScreen = document.getElementById('loginScreen');
+        const mainAppScreen = document.getElementById('mainAppScreen');
+
+        loginScreen.style.display = 'none';
+        mainAppScreen.style.display = 'none';
+        document.getElementById('bottomBar').style.display = 'none';
+
+        if (isLoggedIn && activeKey) {
+            let isValid = false;
+            let expiryText = '';
+
+            if (keyExpiry === 'permanent') {
+                isValid = true;
+                expiryText = 'Vĩnh viễn';
+            } else if (keyExpiry) {
+                const expiryDate = new Date(keyExpiry);
+                if (expiryDate > new Date()) {
+                    isValid = true;
+                    expiryText = expiryDate.toLocaleString('vi-VN');
+                }
+            }
+
+            if (isValid) {
+                document.getElementById('currentKeyInfo').textContent = activeKey;
+                document.getElementById('expiryDateInfo').textContent = expiryText;
+                showMainApp();
+                return;
+            } else {
+                logout('Key của bạn đã hết hạn. Vui lòng đăng nhập lại.');
+            }
+        } else {
+            loginScreen.style.display = 'flex';
+        }
+    }
+
+    function showMainApp() {
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('mainAppScreen').style.display = 'block';
+        document.getElementById('bottomBar').style.display = 'flex';
+        updateStatsInitial(); 
+        initializeObitoFeatures(); 
+    }
+
+    function logout(message = 'Bạn đã đăng xuất.') {
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('activeKey');
+        localStorage.removeItem('keyExpiry');
+        document.getElementById('mainAppScreen').style.display = 'none';
+        document.getElementById('bottomBar').style.display = 'none';
+        document.getElementById('loginScreen').style.display = 'flex';
+        document.getElementById('keyInput').value = '';
+        hideMessage(); 
+        if (message) {
+            showMessage('info', 'Thông báo', message);
+        }
+        const cpuProgress = document.getElementById('cpu-progress');
+        if(cpuProgress) {
+             cpuProgress.style.animation = 'none';
+        }
+        window.isCpuTextUpdating = false;
+        clearTimeout(window.cpuTimeout);
+    }
+    
+    // ==================== ADMIN CONTACT MODAL LOGIC ====================
+    function openAdminContactModal() {
+        document.getElementById('adminContactModal').style.display = 'flex';
+    }
+
+    function closeAdminContactModal() {
+        document.getElementById('adminContactModal').style.display = 'none';
+    }
+    
+    // ==================== STATS & APP LOGIC ====================
+    function getRandomInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+    function setCircleValue(id, percent, color, textContent) {
+        const progress = document.getElementById(id + '-progress');
+        const textElement = document.getElementById(id + '-percent');
+        const offset = TOTAL_LENGTH - (TOTAL_LENGTH * percent / 100);
+        textElement.textContent = textContent !== undefined ? textContent : (percent + '%');
+        progress.style.stroke = color;
+        setTimeout(() => { progress.style.strokeDashoffset = offset; }, 10);
+    }
+    function updateCpuText() {
+        const cpuText = document.getElementById('cpu-percent');
+        const newPercent = getRandomInt(20, 30);
+        cpuText.textContent = newPercent + '%';
+        const newInterval = getRandomInt(300, 700);
+        if (window.isCpuTextUpdating) { window.cpuTimeout = setTimeout(updateCpuText, newInterval); }
+    }
+    function updateStatsInitial() {
+        initialRamPercent = getRandomInt(10, 36);
+        initialNetworkPercent = getRandomInt(0, 54);
+        setCircleValue('ram', initialRamPercent, '#00FF7F'); /* Xanh Lục Neon */
+        setCircleValue('network', initialNetworkPercent, '#00BFFF'); /* Xanh Lam */
+        document.getElementById('cpu-progress').style.strokeDashoffset = CPU_INITIAL_OFFSET;
+        window.isCpuTextUpdating = true;
+        updateCpuText();
+        renderSelectedApps();
+    }
+    function toggleMode(buttonId) {
+        const buttons = document.querySelectorAll('.mode-button');
+        buttons.forEach(btn => {
+            if (btn.id === buttonId) { btn.classList.add('active'); } else { btn.classList.remove('active'); }
+        });
+    }
+    function openAppSelector() {
+        document.querySelectorAll('.app-choice').forEach(choice => {
+            const id = choice.getAttribute('data-id');
+            if (selectedApps[id]) { choice.classList.add('selected'); } else { choice.classList.remove('selected'); }
+        });
+        document.getElementById('appSelectorModal').style.display = 'flex';
+    }
+    function closeAppSelector() { document.getElementById('appSelectorModal').style.display = 'none'; }
+    function toggleSelection(element) { element.classList.toggle('selected'); }
+    function renderSelectedApps() {
+        const container = document.getElementById('selectedAppsContainer');
+        const noAppText = document.getElementById('noAppText');
+        container.innerHTML = '';
+        const appKeys = Object.keys(selectedApps);
+        if (appKeys.length === 0) {
+            noAppText.style.display = 'block';
+            container.style.display = 'none';
+        }
+        else {
+            noAppText.style.display = 'none';
+            container.style.display = 'flex';
+            appKeys.forEach(key => {
+                const app = selectedApps[key];
+                const appItem = document.createElement('div');
+                appItem.className = 'app-item';
+                appItem.innerHTML = `<img src="https://i.postimg.cc/76Y8d3tk/IMG-1648.jpg" alt="${app.name} Icon"><span class="app-item-label">${app.name}</span>`; 
+                container.appendChild(appItem);
+            });
+        }
+    }
+    function addSelectedApps() {
+        const currentSelections = {};
+        document.querySelectorAll('.app-choice.selected').forEach(choice => {
+            const id = choice.getAttribute('data-id');
+            const name = choice.getAttribute('data-name');
+            const img = choice.getAttribute('data-img');
+            currentSelections[id] = { id, name, img };
+        });
+        selectedApps = currentSelections;
+        renderSelectedApps();
+        closeAppSelector();
+    }
+    
+    // ==================== LOGIC OBITO MỚI ====================
+    let activeObitoFeatures = new Set();
+    
+    function simulateObitoFeatureActivation(featureCardElement, featureName) {
+        return new Promise(resolve => {
+            const progressBarContainer = document.querySelector(`.small-progress-bar-container[data-progress-id="${featureName}"]`);
+            const progressBar = progressBarContainer ? progressBarContainer.querySelector('.small-progress-bar') : null;
+            
+            if (!progressBar) return resolve(); 
+
+            progressBarContainer.style.display = 'block';
+            let width = 0;
+            const duration = 800; 
+            const intervalTime = 10;
+            const steps = duration / intervalTime;
+            const increment = 100 / steps;
+           
+            const interval = setInterval(() => {
+                width += increment;
+                if (width >= 100) {
+                    width = 100;
+                    clearInterval(interval);
+                    progressBar.style.width = '100%';
+                    
+                    setTimeout(() => {
+                         progressBarContainer.style.display = 'none';
+                         progressBar.style.width = '0%';
+                         resolve();
+                    }, 300);
+                } else {
+                    progressBar.style.width = width + '%';
+                }
+            }, intervalTime);
+        });
+    }
+
+    function initializeObitoFeatures() {
+        const obitoFeatures = document.querySelectorAll('.feature-card[data-function]');
+        obitoFeatures.forEach(card => {
+            card.addEventListener('click', async function() {
+                const featureName = this.getAttribute('data-function');
+                
+                if (this.classList.contains('activated')) {
+                    this.classList.remove('activated');
+                    activeObitoFeatures.delete(featureName);
+                } else {
+                    this.classList.add('pressed');
+                    
+                    await simulateObitoFeatureActivation(this, featureName);
+                    
+                    this.classList.remove('pressed');
+                    this.classList.add('activated');
+                    activeObitoFeatures.add(featureName);
+                }
+            });
+        });
+    }
+
+    function startBoost() {
+        const overlay = document.getElementById('loadingOverlay');
+        const progressPercent = document.getElementById('loading-percent');
+        const progressBar = document.getElementById('loading-progress-bar');
+        const cpuProgress = document.getElementById('cpu-progress');
+        
+        cpuProgress.style.animation = 'none';
+        window.isCpuTextUpdating = false;
+        clearTimeout(window.cpuTimeout);
+        overlay.style.display = 'flex';
+        progressBar.style.strokeDashoffset = TOTAL_LENGTH;
+        
+        const featureCount = activeObitoFeatures.size;
+        let featuresList = Array.from(activeObitoFeatures).join(', ');
+        if (featureCount === 0) {
+            featuresList = 'Tối ưu hệ thống...';
+        } else {
+            featuresList = `Tối ưu hệ thống và ${featureCount} tính năng game: ${featuresList}`;
+        }
+        
+        document.querySelector('#loadingOverlay .loading-text').textContent = `Đang xử lý`;
+
+        let currentPercent = 0;
+        const interval = setInterval(() => {
+            currentPercent++;
+            progressPercent.textContent = currentPercent + '%';
+            const offset = TOTAL_LENGTH - (TOTAL_LENGTH * currentPercent / 100);
+            progressBar.style.strokeDashoffset = offset;
+            
+            if (currentPercent >= 100) {
+                clearInterval(interval);
+                progressPercent.textContent = 'HOÀN THÀNH';
+                
+                const newRamPercent = Math.max(initialRamPercent - getRandomInt(5, 15), 5); 
+                setCircleValue('cpu', 5, '#FF0000', '5%');
+                setCircleValue('ram', newRamPercent, '#FF0000'); /* Xanh Lục Neon */
+                setCircleValue('network', initialNetworkPercent, '#FF0000'); /* Xanh Lam */
+                
+                setTimeout(() => {
+                    cpuProgress.style.animation = 'cpu-load-ring 3s infinite alternate';
+                    window.isCpuTextUpdating = true;
+                    updateCpuText();
+                    initialRamPercent = newRamPercent; 
+                }, 1000);
+                
+                setTimeout(() => { overlay.style.display = 'none'; }, 1500);
+            }
+        }, 50);
+    }
+</script>
+<style>
+  /* Đổi hiệu ứng Neon Background từ Cam/Xanh sang Đen/Xanh Lam */
+  .neon-bg::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* **[ĐÃ BỎ/CẬP NHẬT]** Bỏ lớp phủ gradient neon cũ (vì đã có lớp phủ màu đen mờ mới) */
+    background: radial-gradient(circle at 20% 20%, rgba(0, 191, 255, 0.05), transparent 70%),
+                radial-gradient(circle at 80% 80%, rgba(0, 255, 127, 0.04), transparent 70%);
+    background-blend-mode: screen;
+    animation: none; /* Bỏ animation move cũ */
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  @keyframes neonMove {
+    0% { filter: hue-rotate(0deg); transform: scale(1); }
+    50% { filter: hue-rotate(180deg); transform: scale(1.05); }
+    100% { filter: hue-rotate(360deg); transform: scale(1); }
+  }
+</style>
+
+<script>
+  // Kích hoạt hiệu ứng neon
+  document.body.classList.add('neon-bg');
+</script>
+<style>
+  /* Cánh hoa đã đổi màu sang tone Xanh Lam/Xanh Lục nhạt */
+  .petal {
+    position: fixed;
+    top: -10px;
+    width: 12px;
+    height: 8px;
+    background: #FF0000; /* Xanh Lam */
+    border-radius: 15px 5px 15px 0;
+    transform: rotate(15deg);
+    opacity: 0.6;
+    z-index: 9999;
+    pointer-events: none;
+    animation: fall linear forwards;
+  }
+  .petal:nth-child(even) {
+    background: #FF0000; /* Xanh Lục Neon */
+  }
+
+  @keyframes fall {
+    0% {
+      transform: translateX(0) translateY(0) rotate(0deg);
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(40px) translateY(100vh) rotate(720deg);
+      opacity: 0;
+    }
+  }
+</style>
+
+<script>
+  // 🌸 Hàm tạo cánh hoa
+  function createPetal() {
+    const petal = document.createElement('div');
+    petal.classList.add('petal');
+    petal.style.left = Math.random() * 100 + 'vw';
+    petal.style.animationDuration = (6 + Math.random() * 4) + 's';
+    petal.style.background = Math.random() > 0.5 ? '#FF0000' : '#FF0000';
+    petal.style.transform = `rotate(${Math.random() * 360}deg)`;
+    petal.style.opacity = Math.random() * 0.8 + 0.3;
+    document.body.appendChild(petal);
+
+    // Tự xóa khi rơi xong
+    setTimeout(() => petal.remove(), 10000);
+  }
+
+  // 🌸 Rơi nhẹ và liên tục
+  setInterval(createPetal, 300);
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  function typeWriter(el, text, speed=150, loop=true) {
+    let i = 0;
+    function type() {
+      if (i < text.length) {
+        el.textContent += text.charAt(i);
+        i++;
+        setTimeout(type, speed);
+      } else if(loop) {
+        setTimeout(() => {
+          el.textContent = "";
+          i = 0;
+          type();
+        }, 2000);
+      }
+    }
+    type();
+  }
+  const mainTitle = document.getElementById("mainTitle");
+  if (mainTitle) typeWriter(mainTitle, "MENU AIMBOT PRO", 150, true);
+});
+function sgF() {
+           h5gg.clearResults(); 
+           h5gg.searchNumber('10100400', 'I32', '0x0', '0x200000000'); 
+           h5gg.editAll('1101004200', 'I32'); 
+           h5gg.clearResults(); 
+           h5gg.searchNumber('20500500', 'I32', '0x0', '0x200000000'); 
+           h5gg.editAll('1010042003', 'I32'); 
+           h5gg.clearResults(); 
+           h5gg.searchNumber('29100400', 'I32', '0x0', '0x200000000'); 
+           h5gg.editAll('1010042001', 'I32'); 
+           h5gg.clearResults(); 
+           h5gg.searchNumber('20300800', 'I32', '0x0', '0x200000000'); 
+           h5gg.editAll('1010042002', 'I32'); 
+           h5gg.clearResults(); 
+           h5gg.searchNumber('20401300', 'I32', '0x0', '0x200000000'); 
+           h5gg.editAll('1010041955', 'I32'); 
+           h5gg.clearResults(); 
+           h5gg.searchNumber('20401200', 'I32', '0x0', '0x200000000'); 
+           h5gg.editAll('1010041950', 'I32'); 
+           h5gg.clearResults(); 
+           h5gg.searchNumber('20401100', 'I32', '0x0', '0x200000000'); 
+           h5gg.editAll('1010041949', 'I32'); 
+           h5gg.clearResults(); 
+           h5gg.searchNumber('20101100', 'I32', '0x0', '0x200000000'); 
+           h5gg.editAll('1010041958', 'I32'); 
+           h5gg.clearResults(); 
+           h5gg.searchNumber('20101000', 'I32', '0x0', '0x200000000'); 
+           h5gg.editAll('1010041956', 'I32'); 
+           h5gg.clearResults(); 
+           h5gg.searchNumber('20100900', 'I32', '0x0', '0x200000000'); 
+           h5gg.editAll('1010041957', 'I32'); 
+           h5gg.clearResults(); 
+           h5gg.searchNumber('20200600', 'I32', '0x0', '0x200000000'); 
+           h5gg.editAll('1010041960', 'I32'); 
+           h5gg.clearResults(); 
+           h5gg.searchNumber('20200200', 'I32', '0x0', '0x200000000'); 
+           h5gg.editAll('101041965', 'I32'); 
+           h5gg.clearResults(); 
+           h5gg.searchNumber('20200100', 'I32', '0x0', '0x200000000'); 
+           h5gg.editAll('1010041959', 'I32'); 
+           alert('Thành Công');
+       }
+</script>
 </body>
 </html>
