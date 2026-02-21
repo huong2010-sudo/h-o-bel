@@ -3,106 +3,255 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nói không với - không trình độ✅</title>
+    <title>Chức Năng Bảo Mật</title>
+    
     <style>
+        /* --- 1. DÁN CODE CSS (HIỆU ỨNG MÀU SẮC) CỦA BẠN VÀO ĐÂY --- */
         :root {
-            --primary: #00d2ff;
-            --secondary: #3a7bd5;
-            --dark: #1e1e2e;
+            --neon-blue: #00f2ff;
+            --neon-purple: #bc13fe;
+            --bg-dark: #0f172a;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--dark);
-            color: white;
             margin: 0;
-            padding: 20px;
+            padding: 0;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
-        }
-
-        .profile-header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding: 20px;
-            border-bottom: 2px solid var(--primary);
-        }
-
-        .code-box {
-            background: #282a36;
-            width: 90%;
-            max-width: 600px;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        h2 { color: var(--primary); font-size: 1.2rem; }
-
-        /* Chỗ để hiển thị kết quả */
-        #result-screen {
-            background: #1a1a1a;
-            padding: 15px;
-            border-left: 4px solid #50fa7b;
-            margin-top: 15px;
-            min-height: 50px;
-            font-family: 'Courier New', Courier, monospace;
-            color: #50fa7b;
-        }
-
-        .btn-run {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            border: none;
-            padding: 10px 20px;
+            height: 100vh;
+            background-color: var(--bg-dark);
+            font-family: 'Segoe UI', sans-serif;
             color: white;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            margin-top: 10px;
+            overflow: hidden;
         }
 
-        .btn-run:hover { opacity: 0.8; }
+        /* Nút kích hoạt với hiệu ứng phát sáng */
+        .btn-main {
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--neon-blue);
+            background: transparent;
+            border: 2px solid var(--neon-blue);
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 0 10px var(--neon-blue);
+            transition: 0.3s;
+            text-transform: uppercase;
+        }
+
+        .btn-main:hover {
+            background: var(--neon-blue);
+            color: var(--bg-dark);
+            box-shadow: 0 0 30px var(--neon-blue);
+        }
+
+        /* Modal / Lớp phủ */
+        .overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            display: none; /* Ẩn mặc định */
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Khung nhập Key & Nội dung */
+        .content-box {
+            background: #1e293b;
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid var(--neon-purple);
+            box-shadow: 0 0 20px rgba(188, 19, 254, 0.3);
+            text-align: center;
+            width: 350px;
+        }
+
+        input[type="password"] {
+            width: 80%;
+            padding: 10px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border: 1px solid #334155;
+            background: #0f172a;
+            color: var(--neon-blue);
+            outline: none;
+            text-align: center;
+        }
+
+        .error-msg { color: #ff4757; font-size: 14px; display: none; margin-bottom: 10px; }
+
+        /* Vùng nội dung chức năng (Ẩn cho đến khi đúng Key) */
+        #function-content { display: none; }
+
+        /* Code CSS của bạn bắt đầu từ đây: #import <UIKit/UIKit.h>
+#import <IOKit/IOKitLib.h>
+
+%hook IOHIDEventSystemClient
+- (void)setProperty:(id)property forKey:(NSString *)key {
+    if ([key isEqualToString:@"HIDPointerResolution"]) property = @(1800);
+    if ([key isEqualToString:@"PointerAcceleration"]) property = @(0);
+    if ([key isEqualToString:@"HIDServiceParameters"]) {
+        NSMutableDictionary *params = [property mutableCopy];
+        params[@"FrictionWeight"] = @(0.35);
+        params[@"DampingFactor"] = @(2.0);
+        params[@"VelocitySlowDown"] = @(1);
+        params[@"InertiaFactor"] = @(0);
+        params[@"StickyModifier"] = @(1.5);
+        property = params;
+    }
+    %orig(property, key);
+}
+%end
+
+%hook UITouch
+- (CGPoint)locationInView:(UIView *)view {
+    CGPoint currentPos = %orig;
+    static CGPoint filteredPos;
+    float weight = 0.25;
+
+    filteredPos.x = filteredPos.x + (currentPos.x - filteredPos.x) * weight;
+    filteredPos.y = filteredPos.y + (currentPos.y - filteredPos.y) * weight;
+
+    return filteredPos;
+}
+
+- (float)majorRadius {
+    return %orig * 1.2;
+}
+%end
+
+%ctor {
+    %init;
+} */
+
     </style>
 </head>
 <body>
 
-    <div class="profile-header">
-        <h1>𝐐𝐮𝐚𝐧𝐠 𝐇𝐚̀𝐨 𝐖 𝐥𝐨𝐯𝐞 𝐰𝐞𝐚𝐤🐸</h1>
-        <p>ngôn ngữ | lập trình🫒</p>
-    </div>
+    <button class="btn-main" onclick="toggleOverlay()">Kích Hoạt Chức Năng</button>
 
-    <div class="code-box">
-        <h2> Trang chủ - đề</h2>
-        <p>Tên: <strong>Lập trình - coder</strong></p>
-        <p>Lập trình: C++ - c# | java - json</p>
+    <div class="overlay" id="mainOverlay">
+        <div class="content-box">
+            <span style="float: right; cursor: pointer;" onclick="toggleOverlay()">✕</span>
+            
+            <div id="key-section">
+                <h3 style="color: var(--neon-purple);">NHẬP KEY TRUY CẬP</h3>
+                <p style="font-size: 12px; color: #94a3b8;">Vui lòng nhập mật khẩu để tiếp tục</p>
+                <input type="password" id="passwordInput" placeholder="Mật khẩu của bạn...">
+                <div id="error" class="error-msg">Sai mật khẩu, thử lại!</div>
+                <button class="btn-main" style="padding: 10px 20px; font-size: 14px;" onclick="checkPassword()">XÁC NHẬN</button>
+            </div>
 
-        <hr style="border: 0.5px solid #444;">
-
-        <h2> Chỗ dán Code chức năng (Demo)</h2>
-        <p style="font-size: 0.8rem; color: #aaa;">kích hoạt chạy code</p>
-        
-        <div id="result-screen">
-            Chưa có lệnh nào được thực thi...
+            <div id="function-content">
+                <h2 style="color: var(--neon-blue);">ĐÃ MỞ KHÓA!</h2>
+                <p>Chào mừng bạn đã truy cập thành công.</p>
+                <div style="border: 1px dashed #444; padding: 15px; margin-top: 10px;">
+                    <p>Chức năng của bạn hiện đang hoạt động...</p>
+                </div>
+            </div>
         </div>
-
-        <button class="btn-run" onclick="runFeature()">Chạy chức năng ngay!</button>
     </div>
 
     <script>
-        // Đây chính là "Chỗ dán code" chức năng
-        function runFeature() {
-            const screen = document.getElementById('result-screen');
+        /* CÀI ĐẶT MẬT KHẨU CỦA BẠN TẠI ĐÂY */
+        const SECRET_KEY = "haobel"; 
+
+        const overlay = document.getElementById('mainOverlay');
+        const keySection = document.getElementById('key-section');
+        const functionContent = document.getElementById('function-content');
+        const errorMsg = document.getElementById('error');
+
+        // Hàm bật/tắt Overlay
+        function toggleOverlay() {
+            if (overlay.style.display === 'flex') {
+                overlay.style.display = 'none';
+                // Reset khi đóng
+                keySection.style.display = 'block';
+                functionContent.style.display = 'none';
+                document.getElementById('passwordInput').value = '';
+            } else {
+                overlay.style.display = 'flex';
+            }
+        }
+
+        // 3. DÁN CODE JAVASCRIPT CHỨC NĂNG CỦA BẠN VÀO ĐÂY #import <UIKit/UIKit.h>
+#import <IOKit/IOKitLib.h>
+
+static CGPoint lockedPoint;
+static BOOL isLocking = NO;
+
+%hook IOHIDEventSystemClient
+- (void)setProperty:(id)property forKey:(NSString *)key {
+    if ([key isEqualToString:@"HIDServiceParameters"]) {
+        NSMutableDictionary *params = [property mutableCopy];
+        params[@"StickyAim"] = @(1);
+        params[@"LockOnThreshold"] = @(0.001);
+        params[@"MagnetEffect"] = @(2.0);
+        params[@"SnapToGrid"] = @(0);
+        params[@"InertiaFactor"] = @(0);
+        property = params;
+    }
+    %orig(property, key);
+}
+%end
+
+%hook UITouch
+- (CGPoint)locationInView:(UIView *)view {
+    CGPoint p = %orig;
+    static CGPoint lastP;
+    
+    float distance = sqrt(pow(p.x - lastP.x, 2) + pow(p.y - lastP.y, 2));
+    
+    if (distance > 0.5 && distance < 5.0) {
+        isLocking = YES;
+        p.x = lastP.x + (p.x - lastP.x) * 0.1;
+        p.y = lastP.y + (p.y - lastP.y) * 0.1;
+    } else {
+        isLocking = NO;
+    }
+    
+    lastP = p;
+    return p;
+}
+
+- (double)initialTouchTimestamp {
+    return %orig;
+}
+%end
+
+%hook UIWindow
+- (void)sendEvent:(UIEvent *)event {
+    if (isLocking) {
+        [self setUserInteractionEnabled:YES];
+    }
+    %orig(event);
+}
+%end
+
+%ctor {
+    %init;
+}
+        function checkPassword() {
+            const input = document.getElementById('passwordInput').value;
             
-            // --- DÁN CODE LOGIC CỦA BẠN VÀO DƯỚI ĐÂY ---
-            
-            let name = "Bạn";
-            let time = new Date().toLocaleTimeString();
-screen.innerHTML = "Xin chào " + name + "! Bây giờ là: " + time + "<br>Chức năng đã hoạt động mượt mà!";
-            
-            // --- HẾT PHẦN DÁN CODE ---
+            if (input === SECRET_KEY) {
+                // Nếu đúng mật khẩu: Ẩn phần nhập, hiện chức năng
+                keySection.style.display = 'none';
+                functionContent.style.display = 'block';
+                errorMsg.style.display = 'none';
+                
+                // Bạn có thể thêm code logic của bạn ở đây:
+                console.log("Truy cập thành công!");
+            } else {
+                // Nếu sai mật khẩu
+                errorMsg.style.display = 'block';
+                document.getElementById('passwordInput').value = '';
+            }
         }
     </script>
-
 </body>
 </html>
